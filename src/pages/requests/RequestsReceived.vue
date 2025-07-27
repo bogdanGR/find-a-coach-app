@@ -1,5 +1,3 @@
 <template>
-  <div>test</div>
+  REQUESTS
 </template>
-<script setup lang="ts">
-</script>

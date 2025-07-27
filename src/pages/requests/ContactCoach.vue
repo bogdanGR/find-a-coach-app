@@ -1,5 +1,3 @@
 <template>
-  <div>test</div>
+  Contact a coach
 </template>
-<script setup lang="ts">
-</script>

@@ -1,5 +1,3 @@
 <template>
-  <div>test</div>
+  REGISTER
 </template>
-<script setup lang="ts">
-</script>

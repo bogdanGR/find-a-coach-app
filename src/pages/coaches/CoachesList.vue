@@ -3,6 +3,11 @@
     FILTER
   </section>
   <section>
-    FIST OF COACHES
+    <div class="controls">
+      <button>Refresh</button>
+      <router-link to="/register">Register as a coach</router-link>
+    </div>
+    <ul>FIST OF COACHES</ul>
+
   </section>
 </template>

@@ -1,5 +1,3 @@
 <template>
-  <div>test</div>
+  not found
 </template>
-<script setup lang="ts">
-</script>
