@@ -34,10 +34,9 @@
     <base-button>Register</base-button>
   </form>
 </template>
-<script setup lang="ts">
-</script>
 <script>
 export default {
+  emits: ['save-data'],
   data() {
     return {
       firstName: '',
@@ -57,7 +56,7 @@ export default {
         areas: this.areas
       };
 
-      console.log(formData);
+      this.$emit('save-data', formData);
     }
   }
 }
