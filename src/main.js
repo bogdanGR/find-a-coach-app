@@ -6,6 +6,7 @@ import App from  './App.vue';
 import BaseCard from './components/ui/baseCard.vue';
 import BaseButton from './components/ui/baseButton.vue';
 import BaseBadge from './components/ui/baseBadge.vue';
+import BaseSpinner from '@/components/ui/baseSpinner.vue';
 
 const app = createApp(App);
 
@@ -15,5 +16,6 @@ app.use(store);
 app.component('base-card', BaseCard); // registering of a global component
 app.component('base-button', BaseButton);
 app.component('base-badge', BaseBadge);
+app.component('base-spinner', BaseSpinner);
 
 app.mount('#app');
