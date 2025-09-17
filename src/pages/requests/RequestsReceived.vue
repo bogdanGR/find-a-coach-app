@@ -1,22 +1,24 @@
 <template>
-  <base-dialog :show="!!error" title="An error occurred!!" @close="handleError">
-    <p>{{ error }}</p>
-  </base-dialog>
-  <section>
-    <base-card>
-      <header>
-        <h2>Requests Received</h2>
-        <base-spinner v-if="isLoading"></base-spinner>
-        <ul v-else-if="hasRequests && !isLoading">
-          <request-item v-for="request in receivedRequests"
-                        :email="request.userEmail"
-                        :message="request.message"
-                        :key="request.id"></request-item>
-        </ul>
-        <h3 v-else>You haven't received any requests yet!</h3>
-      </header>
-    </base-card>
-  </section>
+  <div>
+    <base-dialog :show="!!error" title="An error occurred!!" @close="handleError">
+      <p>{{ error }}</p>
+    </base-dialog>
+    <section>
+      <base-card>
+        <header>
+          <h2>Requests Received</h2>
+          <base-spinner v-if="isLoading"></base-spinner>
+          <ul v-else-if="hasRequests && !isLoading">
+            <request-item v-for="request in receivedRequests"
+                          :email="request.userEmail"
+                          :message="request.message"
+                          :key="request.id"></request-item>
+          </ul>
+          <h3 v-else>You haven't received any requests yet!</h3>
+        </header>
+      </base-card>
+    </section>
+  </div>
 </template>
 <script>
 import requestItem from '../../components/requests/RequestItem.vue';
@@ -28,8 +30,8 @@ export default {
   data() {
     return {
       isLoading: false,
-      error: null,
-    }
+      error: null
+    };
   },
   computed: {
     receivedRequests() {
