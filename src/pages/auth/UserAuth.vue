@@ -44,12 +44,19 @@ export default {
   methods: {
     submitForm() {
       this.formIsValid = true;
-      if (this.email === '' || this.email.includes('@') || this.password.length < 6) {
+      if (this.email === '' || !this.email.includes('@') || this.password.length < 6) {
         this.formIsValid = false;
         return;
       }
 
-      //send http request
+     if (this.mode === 'login') {
+       //
+     } else {
+       this.$store.dispatch('signup', {
+         email: this.email,
+         password: this.password
+       });
+     }
     },
     switchAuthMode() {
       if (this.mode === 'login') {
