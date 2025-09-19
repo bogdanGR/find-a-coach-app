@@ -1,6 +1,13 @@
 <template>
-  <base-card>
-    <form @submit.prevent="submitForm">
+  <div>
+    <base-dialog :show="!!error" title="An error occurred!" @close="handleError">
+      <p>{{ error }}</p>
+    </base-dialog>
+    <base-dialog fixed :show="isLoading" title="Authenticating...">
+      <base-spinner></base-spinner>
+    </base-dialog>
+    <base-card>
+      <form @submit.prevent="submitForm">
         <div class="form-control">
           <label for="email">E-Mail</label>
           <input type="email" id="email" v-model.trim="email">
@@ -9,20 +16,26 @@
           <label for="password">Password</label>
           <input type="password" id="password" v-model.trim="password">
         </div>
-      <p v-if="!formIsValid">Please enter a valid email and password (must be at least 6 characters long)</p>
+        <p v-if="!formIsValid">Please enter a valid email and password (must be at least 6 characters long)</p>
         <base-button>{{  submitButtonText  }}</base-button>
         <base-button type="button" mode="flat" @click="switchAuthMode"> {{ switchModeButtonText }}</base-button>
-    </form>
-  </base-card>
+      </form>
+    </base-card>
+  </div>
 </template>
 <script>
+import BaseSpinner from '@/components/ui/baseSpinner.vue';
+
 export default {
+  components: { BaseSpinner },
   data() {
     return {
       email: '',
       password: '',
       formIsValid: true,
       mode: 'login',
+      isLoading: false,
+      error: null,
     };
   },
   computed: {
@@ -42,21 +55,28 @@ export default {
     },
   },
   methods: {
-    submitForm() {
+    async submitForm() {
       this.formIsValid = true;
       if (this.email === '' || !this.email.includes('@') || this.password.length < 6) {
         this.formIsValid = false;
         return;
       }
+      this.isLoading = true;
 
-     if (this.mode === 'login') {
-       //
-     } else {
-       this.$store.dispatch('signup', {
-         email: this.email,
-         password: this.password
-       });
-     }
+      try {
+        if (this.mode === 'login') {
+          //
+        } else {
+          await this.$store.dispatch('signup', {
+            email: this.email,
+            password: this.password
+          });
+        }
+      } catch (e) {
+        this.error = e.message || 'Failed to authenticate, try again later.';
+      }
+
+      this.isLoading = false;
     },
     switchAuthMode() {
       if (this.mode === 'login') {
@@ -64,6 +84,9 @@ export default {
       } else {
         this.mode = 'login';
       }
+    },
+    handleError() {
+      this.error = null;
     },
   }
 }
